@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17211C">
+  <meta name="description" content="جوج برومبتات جاهزة للنسخ: تصميم شخصية حيوانية ثم تحريكها في فيديو قصير.">
+  <title>Animal Animation Prompt Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #F2F4EF;
+      --surface: #FFFFFF;
+      --ink: #17211C;
+      --muted: #5B6860;
+      --brand: #175C42;
+      --brand-hover: #0F4A34;
+      --brand-soft: #EAF2EB;
+      --amber: #D9A441;
+      --amber-ink: #2A1F04;
+      --line: #E2E8E0;
+      --code-ink: #233129;
+      --shadow-card: 0 12px 32px rgb(23 33 28 / 8%);
+      --shadow-btn: 0 6px 16px rgb(23 92 66 / 22%);
+      --r-card: 20px;
+      --r-inner: 14px;
+      --r-btn: 12px;
+      --r-chip: 999px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16.5px;
+      line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2 {
+      font-family: "Alexandria", "IBM Plex Sans Arabic", system-ui, sans-serif;
+      line-height: 1.35;
+      letter-spacing: 0;
+      margin: 0;
+    }
+    h1 { font-weight: 900; font-size: clamp(30px, 4.5vw, 44px); }
+    h2 { font-weight: 800; font-size: 19px; }
+    p { margin: 0; }
+    .wrap { width: min(1000px, calc(100% - 32px)); margin: 0 auto; padding: 0 0 40px; }
+    .skip {
+      position: absolute; right: 16px; top: -60px; z-index: 50;
+      background: var(--ink); color: #fff; padding: 10px 16px;
+      border-radius: 10px; text-decoration: none; transition: top .2s;
+    }
+    .skip:focus { top: 12px; }
+
+    /* Hero — the one bold place */
+    .hero {
+      position: relative; overflow: hidden;
+      background: var(--ink); color: #F4F7F3;
+      border-radius: 0 0 28px 28px;
+      padding: 44px 0 30px;
+      margin-bottom: 22px;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='0.07' stroke-width='2'%3E%3Cellipse cx='70' cy='82' rx='16' ry='13'/%3E%3Ccircle cx='48' cy='62' r='7'/%3E%3Ccircle cx='63' cy='54' r='7'/%3E%3Ccircle cx='79' cy='54' r='7'/%3E%3Ccircle cx='93' cy='62' r='7'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px;
+      background: linear-gradient(to left, transparent, rgb(217 164 65 / 45%), transparent);
+    }
+    .hero-inner { position: relative; width: min(1000px, calc(100% - 32px)); margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgb(217 164 65 / 15%); border: 1px solid rgb(217 164 65 / 40%);
+      color: #F2D79B; font-size: 13px; font-weight: 600;
+      padding: 7px 14px; border-radius: var(--r-chip); margin-bottom: 14px;
+    }
+    .hero-badge svg { width: 16px; height: 16px; }
+    .hero h1 { color: #fff; max-width: 18ch; }
+    .hero h1 .thin { display: block; font-weight: 700; font-size: .52em; color: #CBE3D4; margin-top: 6px; line-height: 1.6; }
+    .intro { color: #B9C9BE; max-width: 58ch; margin-top: 12px; font-size: 16px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; list-style: none; padding: 0; }
+    .chips li {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600; color: #E7EFE9;
+      background: rgb(255 255 255 / 7%); border: 1px solid rgb(255 255 255 / 14%);
+      padding: 7px 13px; border-radius: var(--r-chip);
+    }
+    .chips svg { width: 15px; height: 15px; color: var(--amber); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      font: inherit; font-size: 14px; font-weight: 600;
+      border-radius: var(--r-btn); padding: 12px 22px;
+      border: 1px solid transparent; cursor: pointer;
+      min-height: 48px; text-decoration: none;
+      transition: background .16s ease, transform .16s ease, box-shadow .16s ease, border-color .16s;
+    }
+    .btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
+    .btn-primary { background: var(--brand); color: #fff; box-shadow: var(--shadow-btn); }
+    .btn-primary:hover { background: var(--brand-hover); transform: translateY(-1px); box-shadow: 0 10px 22px rgb(15 74 52 / 28%); }
+    .btn-primary:active { transform: scale(.97); }
+    .btn-ghost { background: rgb(255 255 255 / 6%); color: #fff; border-color: rgb(255 255 255 / 18%); }
+    .btn-ghost:hover { background: rgb(255 255 255 / 11%); transform: translateY(-1px); }
+    .btn-ghost:active { transform: scale(.97); }
+    .btn:focus-visible, .icon-btn:focus-visible, .copy-btn:focus-visible {
+      outline: 2px solid var(--amber); outline-offset: 2px;
+    }
+    .card .btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--line); min-height: 44px; padding: 10px 16px; box-shadow: none; }
+    .card .btn-ghost:hover { border-color: var(--brand); background: var(--brand-soft); }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
+    .steps li {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-inner);
+      padding: 13px 14px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .step-n {
+      flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+      background: var(--ink); color: #fff; font-weight: 800; font-size: 14px;
+      display: grid; place-items: center; font-family: "Alexandria", sans-serif;
+    }
+    .steps li:nth-child(2) .step-n { background: var(--brand); }
+    .steps li:nth-child(3) .step-n { background: var(--amber); color: var(--amber-ink); }
+    .steps b { display: block; font-size: 14px; line-height: 1.6; }
+    .steps span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+
+    .stack { display: grid; gap: 18px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--r-card); box-shadow: var(--shadow-card);
+      overflow: hidden; scroll-margin-top: 16px;
+    }
+    .card-head { padding: 22px 22px 16px; border-bottom: 1px solid var(--line); }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .title-group { display: flex; gap: 13px; align-items: flex-start; min-width: 0; }
+    .pill {
+      flex: 0 0 auto; font-size: 12px; font-weight: 800; font-family: "Alexandria", sans-serif;
+      background: var(--amber); color: var(--amber-ink);
+      padding: 6px 12px; border-radius: var(--r-chip); margin-top: 2px; white-space: nowrap;
+    }
+    .card:nth-child(2) .pill { background: var(--brand); color: #fff; }
+    .card-title h2 { line-height: 1.4; }
+    .card-title p { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+    .card-actions { display: flex; gap: 8px; flex: 0 0 auto; flex-wrap: wrap; }
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 0; border-radius: var(--r-btn); background: var(--brand); color: #fff;
+      padding: 12px 20px; font: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer; min-height: 48px; box-shadow: var(--shadow-btn);
+      transition: background .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .copy-btn svg { width: 20px; height: 20px; }
+    .copy-btn:hover { background: var(--brand-hover); transform: translateY(-1px); }
+    .copy-btn:active { transform: scale(.97); }
+    .copy-btn.done { background: #0E7A4F; }
+    .icon-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      min-width: 48px; min-height: 48px; padding: 0 14px;
+      border-radius: var(--r-btn); border: 1px solid var(--line);
+      background: var(--surface); color: var(--ink); cursor: pointer;
+      font: inherit; font-size: 13px; font-weight: 600;
+      transition: background .16s, border-color .16s, transform .16s;
+    }
+    .icon-btn svg { width: 20px; height: 20px; }
+    .icon-btn:hover { background: var(--brand-soft); border-color: var(--brand); }
+    .icon-btn:active { transform: scale(.97); }
+
+    .meta-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      margin-top: 16px; padding: 10px 12px;
+      background: #F7FAF7; border: 1px solid var(--line); border-radius: 12px;
+      font-size: 12.5px; color: var(--muted);
+    }
+    .meta-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .lang-tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px; font-weight: 700; direction: ltr;
+      background: var(--ink); color: #fff; padding: 4px 10px; border-radius: 999px;
+    }
+    .count { font-variant-numeric: tabular-nums; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #9DB0A4; display: inline-block; }
+    .status-dot.ok { background: #0E7A4F; }
+
+    .code-wrap { padding: 0; background: #FBFCFA; }
+    .prompt-content {
+      margin: 0; padding: 22px 24px 26px;
+      max-height: 430px; overflow: auto;
+      direction: ltr; text-align: left; white-space: pre-wrap; overflow-wrap: anywhere;
+      color: var(--code-ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px; line-height: 1.75; tab-size: 2;
+      transition: max-height .3s ease;
+    }
+    .prompt-content:focus { outline: 2px solid var(--brand); outline-offset: -2px; }
+    .code-wrap.collapsed .prompt-content { max-height: 170px; }
+    .prompt-content::-webkit-scrollbar { width: 10px; height: 10px; }
+    .prompt-content::-webkit-scrollbar-thumb { background: #CBD8CE; border-radius: 8px; border: 2px solid #FBFCFA; }
+    .prompt-content::-webkit-scrollbar-track { background: transparent; }
+
+    footer { padding: 20px 4px 0; color: var(--muted); font-size: 12.5px; text-align: center; }
+
+    .toast {
+      position: fixed; bottom: 22px; right: 50%; transform: translateX(50%) translateY(20px);
+      display: flex; align-items: center; gap: 10px;
+      background: var(--ink); color: #fff; font-size: 14px; font-weight: 600;
+      padding: 13px 20px; border-radius: 14px; box-shadow: 0 14px 34px rgb(0 0 0 / 28%);
+      opacity: 0; pointer-events: none; z-index: 60; max-width: min(92vw, 480px);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(50%) translateY(0); }
+    .toast svg { width: 20px; height: 20px; color: #7BDBA6; flex: 0 0 auto; }
+
+    .reveal { animation: rise .5s ease both; }
+    .reveal-2 { animation: rise .5s .08s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 700px) {
+      body { font-size: 16px; }
+      .hero { border-radius: 0 0 22px 22px; padding: 32px 0 24px; }
+      .steps { grid-template-columns: 1fr; }
+      .card-top { flex-direction: column; }
+      .card-actions { width: 100%; }
+      .copy-btn { flex: 1; justify-content: center; }
+      .card-head { padding: 18px 16px 14px; }
+      .prompt-content { padding: 18px 16px 20px; font-size: 11.5px; max-height: 360px; }
+      h2 { font-size: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#prompts">تخطي إلى البرومبتات</a>
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
+        مختبر الأنيميشن — Prompt Kit
+      </span>
+      <h1>برومبتات أفلام الحيوانات القصيرة <span class="thin">صمم الشخصية، ثم حركها — جوج برومبتات جاهزة للنسخ بنقرة واحدة.</span></h1>
+      <p class="intro">الأول كيولد ورقة الشخصية الكاملة، والثاني كيحولها لفيديو عمودي من 15 ثانية. النصوص الإنجليزية محفوظة حرفيا باش تخدم مزيان مع مولدات الصور والفيديو.</p>
+      <ul class="chips" aria-label="مميزات">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>جوج برومبتات جاهزة</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>نسخ بنقرة واحدة</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>عمودي 9:16 • 15 ثانية</li>
+      </ul>
+      <div class="hero-actions">
+        <button class="btn btn-ghost" type="button" id="copyAllBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          نسخ البرومبتين معا
+        </button>
+        <a class="btn btn-ghost" href="#characterCard">بدا بالشخصية</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <ol class="steps" aria-label="طريقة الاستعمال">
+      <li><span class="step-n">1</span><div><b>صمم الشخصية</b><span>نسخ البرومبت الأول ولوحو في مولد الصور.</span></div></li>
+      <li><span class="step-n">2</span><div><b>حركها فيديو</b><span>زيد الصورة المرجعية مع البرومبت الثاني.</span></div></li>
+      <li><span class="step-n">3</span><div><b>كرر بسلسلة جديدة</b><span>كل مرة غتخرج حيوان مختلف تماما.</span></div></li>
+    </ol>
+
+    <section class="stack" id="prompts" aria-label="Prompts">
+      <article class="card reveal" id="characterCard">
+        <div class="card-head">
+          <div class="card-top">
+            <div class="title-group">
+              <span class="pill">الخطوة 1</span>
+              <div class="card-title">
+                <h2>Character Sheet Generator</h2>
+                <p>إنشاء صورة مرجعية للشخصية الحيوانية.</p>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="copy-btn" type="button" data-copy="characterPrompt">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+                <span>نسخ البرومبت</span>
+              </button>
+              <button class="icon-btn" type="button" data-download="characterPrompt" data-filename="character-sheet-prompt.txt" title="تحميل كنص" aria-label="تحميل برومبت الشخصية كنص">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+              </button>
+              <button class="icon-btn" type="button" data-toggle="characterWrap" aria-expanded="true" title="طي / فتح" aria-label="طي أو فتح النص">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="meta-bar">
+            <div class="meta-group"><span class="lang-tag">EN • prompt</span><span class="count" data-count-for="characterPrompt">…</span></div>
+            <div class="meta-group"><span class="status-dot" data-status-for="characterPrompt"></span><span data-status-text-for="characterPrompt">جاهز للنسخ</span></div>
+          </div>
+        </div>
+        <div class="code-wrap" id="characterWrap"><pre class="prompt-content" id="characterPrompt" tabindex="0">You are a world-class 3D character designer and visual development artist specializing in original, expressive animal characters for viral, dialogue-free animated shorts.
+
+## YOUR TASK
+
+Generate the ACTUAL CHARACTER SHEET IMAGE directly. Do not respond with a written description, a prompt, an explanation, or a question. Create the image now.
+
+## 1. AUTOMATIC ANIMAL SELECTION
+
+Independently select exactly ONE animal species for this generation. You must make the decision yourself without asking the user.
+
+Every time this prompt is used, aim to select a different, unexpected species. Explore the full diversity of the animal kingdom, including unusual mammals, birds, reptiles, amphibians, aquatic animals, and other visually interesting species.
+
+Avoid repeatedly defaulting to cats, dogs, foxes, or other obvious choices. Prefer animals with distinctive anatomy, unusual proportions, memorable silhouettes, interesting textures, or naturally entertaining behaviors.
+
+If previous animal designs are visible in the current conversation, do not reuse their species or substantially repeat their character concepts.
+
+Do not announce or explain your selection. Express it entirely through the generated image.
+
+## 2. ORIGINAL CHARACTER DESIGN
+
+Create one extraordinary, instantly recognizable animal character with a strong visual personality.
+
+The character should combine:
+
+- High-end stylized 3D animation with semi-photorealistic materials.
+- Extremely detailed species-appropriate fur, feathers, scales, skin, or other natural surface textures.
+- Expressive eyes and a memorable facial structure.
+- Slightly exaggerated anatomical proportions that enhance personality, comedy, and visual appeal.
+- A distinctive silhouette and carefully designed color palette.
+- A personality that can be understood through facial expressions and body language without dialogue.
+- Anatomy that remains recognizably consistent with the selected species. Use anthropomorphic proportions only where appropriate; never force human limbs or incompatible anatomy onto a species.
+
+The character should look unusual, charming, funny, and visually compelling enough to become the central character of a series of short animated videos.
+
+Aim for premium animated-film production quality with believable lighting, realistic material response, sophisticated shading, detailed geometry, and cinematic rendering.
+
+The design must be original. Do not imitate any existing copyrighted character.
+
+## 3. PROFESSIONAL CHARACTER SHEET COMPOSITION
+
+Create a clean, studio-quality character reference sheet on a neutral, softly colored background.
+
+Arrange the sheet into a professional, visually balanced horizontal layout containing:
+
+A. HERO VIEW: One large, full-body three-quarter view showing the character's complete design and personality.
+
+B. FRONT VIEW: A clear, full-body front view showing the exact facial structure, body proportions, limbs, and identifying features.
+
+C. SIDE VIEW: A full-body side profile showing the species-specific anatomy and silhouette.
+
+D. BACK VIEW: A full-body rear view revealing the character's markings, textures, tail, wings, or other relevant features.
+
+E. EXPRESSION STUDIES: Several close-up expressions that demonstrate a range of emotions appropriate to the character, such as curiosity, smugness, surprise, confusion, excitement, or mischievousness.
+
+F. ANATOMICAL DETAILS: A few useful close-up details of distinctive features, such as eyes, ears, paws, beak, muzzle, tail, claws, or unusual surface patterns, depending on the selected species.
+
+G. POSE STUDY: One additional pose that reveals how the character naturally stands, moves, balances, or interacts with its environment.
+
+## 4. STRICT VISUAL CONSISTENCY
+
+Every view must depict the exact same character.
+
+Maintain identical species, facial identity, body proportions, colors, markings, textures, and distinctive features across all views.
+
+Do not introduce alternative character designs, additional animals, or unrelated concepts.
+
+The sheet must function as a reliable visual reference for a subsequent image-to-video generation workflow.
+
+## 5. VISUAL PRESENTATION
+
+Use a horizontal 4:3 composition with high resolution, clean separation between views, professional visual-development presentation, soft studio lighting, subtle contact shadows, crisp anatomy, and excellent material detail.
+
+The main character must be immediately recognizable and visually dominant.
+
+Use a restrained, light-colored or muted pastel background. Keep the background consistent and unobtrusive.
+
+Do not add readable text, titles, captions, labels, logos, signatures, watermarks, decorative borders, or unnecessary graphic elements.
+
+Avoid distorted anatomy, inconsistent faces, duplicated limbs, extra tails, malformed eyes, blurry details, and inconsistent character proportions.
+
+## FINAL INSTRUCTION
+
+Generate the finished character sheet image directly. The output must be an image, not a description of an image.
+
+Make the animal selection and all artistic decisions autonomously. Prioritize originality, personality, visual clarity, production quality, and suitability for future 10–15-second animated videos.</pre></div>
+      </article>
+
+      <article class="card reveal-2" id="videoCard">
+        <div class="card-head">
+          <div class="card-top">
+            <div class="title-group">
+              <span class="pill">الخطوة 2</span>
+              <div class="card-title">
+                <h2>Image-to-Video Generator</h2>
+                <p>تحويل الشخصية المرجعية لفيديو أنيميشن قصير.</p>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="copy-btn" type="button" data-copy="videoPrompt">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+                <span>نسخ البرومبت</span>
+              </button>
+              <button class="icon-btn" type="button" data-download="videoPrompt" data-filename="image-to-video-prompt.txt" title="تحميل كنص" aria-label="تحميل برومبت الفيديو كنص">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+              </button>
+              <button class="icon-btn" type="button" data-toggle="videoWrap" aria-expanded="true" title="طي / فتح" aria-label="طي أو فتح النص">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="meta-bar">
+            <div class="meta-group"><span class="lang-tag">EN • prompt</span><span class="count" data-count-for="videoPrompt">…</span></div>
+            <div class="meta-group"><span class="status-dot" data-status-for="videoPrompt"></span><span data-status-text-for="videoPrompt">جاهز للنسخ</span></div>
+          </div>
+        </div>
+        <div class="code-wrap" id="videoWrap"><pre class="prompt-content" id="videoPrompt" tabindex="0">Create a 15-second, vertical 9:16, premium-quality 3D animated short using the supplied character sheet as the exact visual reference. Preserve the same adorable juvenile otter throughout: warm chestnut-brown, individually detailed wet fur, creamy beige muzzle and throat extending down its belly, enormous glossy amber-brown eyes, rounded ears, dark textured nose, long white whiskers, short muscular limbs with dark webbed paws, and a thick tapering tail. Maintain identical facial identity, anatomy, proportions, coloring, and fur patterns in every frame. Do not reproduce the character sheet itself.
+
+The scene takes place in a crystal-clear woodland stream, where sunlight creates shimmering golden caustics across smooth river stones beneath the water. Soft green vegetation and warm, out-of-focus riverbank foliage create a peaceful background. Begin immediately with the otter floating on its back in the shallow water, its little webbed paws folded over its creamy belly. A surprisingly large, perfectly transparent air bubble rises from beneath the surface and drifts directly toward its nose. The otter notices it instantly: its enormous eyes cross slightly to follow the bubble, its whiskers twitch, and its head tilts with intense curiosity. As the bubble floats just out of reach, the otter carefully stretches one paw toward it, but the bubble slips sideways on a faint current. The otter paddles its hind feet and makes small alternating movements with its forepaws to follow, accidentally setting its floating body into a slow, increasingly awkward rotation. Its long tail sweeps through the water as a natural rudder, but each attempted correction turns it a little farther. Keep the movement physically coherent, buoyant, and charming. The camera gently tracks the otter at water level, maintaining a clear view of its expressive face and complete body.
+
+As the otter completes its little accidental spin, the elusive bubble drifts directly above its muzzle. The otter freezes, goes cross-eyed in concentration, and raises its nose with exaggerated caution. The bubble settles momentarily against the very tip of its wet nose. For one delightful beat, the otter remains perfectly still, eyes wide and paws held aloft. Then the bubble pops with a tiny, delicate plip, releasing a miniature splash directly across its face. The otter recoils in a single believable startle response, briefly squeezes both eyes shut, and shakes its head once, sending a few sparkling droplets outward. It opens its eyes with a comically offended, bewildered expression, looks down at the water, and notices a second tiny bubble beginning to rise in exactly the same place as the original. Its ears perk up, its nose leans toward the approaching bubble, and the video ends just before the next encounter, with the composition and floating posture naturally matching the opening frame for a potential seamless loop.
+
+Use sophisticated 3D animated-feature rendering, semi-photorealistic fur groom, detailed wet-fur clumping around the cheeks and paws, delicate individual whiskers, realistic water refraction, physically accurate ripples, subtle surface tension, believable buoyancy, and fine droplets with natural specular highlights. The otter's expressions should be highly readable and comedically timed without becoming distorted. Use a medium full-body framing at the start, a subtle controlled push-in as the bubble approaches, and a slightly tighter facial framing for the pop, keeping the important action comfortably inside the vertical safe area. Use soft cinematic sunlight, gentle fill light, natural depth of field, rich but restrained colors, smooth character animation, consistent geometry, stable textures, and polished cinematic compositing. Include synchronized gentle stream ambience, soft water paddling, tiny bubbling sounds, a delicate pop, and a light splash, with precise comedic timing. No dialogue, narration, music overpowering the effects, subtitles, captions, readable text, logos, or watermarks. One continuous, intelligible scene with no unnecessary cuts. The otter must actively perform the entire action; the camera must never substitute for character animation. Avoid anatomical deformation, extra limbs, duplicated paws, changing eye color, altered markings, fur flicker, unnatural spinning, floating without physical support, random props, and abrupt transitions. Deliver a charming, globally understandable visual comedy with a strong first-second hook, escalating physical humor, and a satisfying final reaction.</pre></div>
+      </article>
+    </section>
+
+    <footer>ملف HTML مستقل — البرومبتات محفوظة حرفيا، والنسخ خدام بلا أنترنت.</footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+    <span id="toastText">تم النسخ</span>
+  </div>
+
+  <script>
+    var toast = document.getElementById("toast");
+    var toastText = document.getElementById("toastText");
+    var toastTimer = null;
+    function showToast(msg) {
+      toastText.textContent = msg;
+      toast.classList.add("show");
+      if (toastTimer) window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(function () { toast.classList.remove("show"); }, 2200);
+    }
+    function promptText(id) {
+      var el = document.getElementById(id);
+      return el ? (el.innerText || el.textContent || "") : "";
+    }
+    function markCopied(id) {
+      var dot = document.querySelector('[data-status-for="' + id + '"]');
+      var txt = document.querySelector('[data-status-text-for="' + id + '"]');
+      if (dot) dot.classList.add("ok");
+      if (txt) txt.textContent = "تنسخ بنجاح";
+    }
+    function updateCounts() {
+      ["characterPrompt", "videoPrompt"].forEach(function (id) {
+        var t = promptText(id).trim();
+        var words = t ? t.split(/\s+/).length : 0;
+        var chars = t.length;
+        var el = document.querySelector('[data-count-for="' + id + '"]');
+        if (el) el.textContent = words.toLocaleString("en") + " كلمة • " + chars.toLocaleString("en") + " حرف";
+      });
+    }
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+      var helper = document.createElement("textarea");
+      helper.value = text;
+      helper.setAttribute("readonly", "");
+      helper.style.position = "fixed";
+      helper.style.opacity = "0";
+      document.body.appendChild(helper);
+      helper.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      helper.remove();
+      if (!ok) throw new Error("Copy command failed");
+      return true;
+    }
+    async function copyPrompt(id, button) {
+      var text = promptText(id);
+      var label = button.querySelector("span") || button;
+      var original = label.textContent;
+      try {
+        await copyText(text);
+        label.textContent = "تم النسخ";
+        button.classList.add("done");
+        markCopied(id);
+        showToast("تنسخ البرومبت — لصقو دابا في مولد الصور أو الفيديو.");
+      } catch (error) {
+        var element = document.getElementById(id);
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        showToast("تعذر النسخ التلقائي — النص تحدد، نسخو يدويا.");
+      }
+      window.setTimeout(function () { label.textContent = original; button.classList.remove("done"); }, 1800);
+    }
+    document.querySelectorAll("[data-copy]").forEach(function (button) {
+      button.addEventListener("click", function () { copyPrompt(button.dataset.copy, button); });
+    });
+    document.querySelectorAll("[data-download]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-download");
+        var text = promptText(id);
+        var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = btn.getAttribute("data-filename") || (id + ".txt");
+        document.body.appendChild(a);
+        a.click();
+        window.setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+        showToast("تحمل البرومبت كملف نصي.");
+      });
+    });
+    document.querySelectorAll("[data-toggle]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var wrap = document.getElementById(btn.getAttribute("data-toggle"));
+        if (!wrap) return;
+        var collapsed = wrap.classList.toggle("collapsed");
+        btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      });
+    });
+    var allBtn = document.getElementById("copyAllBtn");
+    if (allBtn) {
+      allBtn.addEventListener("click", async function () {
+        var both = promptText("characterPrompt") + "\n\n---\n\n" + promptText("videoPrompt");
+        try { await copyText(both); showToast("تنسخ البرومبتين بجوج — وجدين للصق."); }
+        catch (e) { showToast("تعذر النسخ — جرب كل برومبت بوحدو."); }
+      });
+    }
+    updateCounts();
+  </script>
+</body>
+</html>
