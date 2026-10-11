@@ -297,7 +297,7 @@
     <div class="hero-inner">
       <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg> Prompt Kit · Animal Animation</span>
       <h1>صمّم شخصية حيوانية، ثم حرّكها في فيديو قصير.</h1>
-      <p class="hero-sub">برومبتان احترافيان بالإنجليزية جاهزان للنسخ بنقرة: الأول يولّد ورقة شخصية كاملة، والثاني يحوّلها إلى فيديو عمودي 9:16.</p>
+      <p class="hero-sub">برومبتان احترافيان بالإنجليزية جاهزان للنسخ بنقرة: الأول يولّد ورقة شخصية كاملة، والثاني يحوّلها إلى فيديو عمودي من 10 ثواني.</p>
       <div class="hero-actions">
         <button class="btn btn-primary" type="button" id="copyAllBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg> نسخ البرومبتين معا
@@ -322,7 +322,7 @@
     <div class="step-connector"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></div>
     <div class="step">
       <span class="step-num">2</span>
-      <div><b>حرّكها فيديو</b><span>أرفق الصورة المرجعية مع البرومبت الثاني في مولد الفيديو.</span></div>
+      <div><b>حرّكها فيديو</b><span>أرفق الصورة المرجعية مع البرومبت الثاني، والمشهد يتكيف مع الحيوان.</span></div>
     </div>
   </section>
 
@@ -459,7 +459,7 @@ Make the animal selection and all artistic decisions autonomously. Prioritize or
         </div>
         <span class="chip">الخطوة 2</span>
       </div>
-      <p class="card-desc">يحوّل الصورة المرجعية إلى فيديو أنيميشن عمودي 15 ثانية: مشهد متواصل واحد وكوميديا بصرية بلا حوار.</p>
+      <p class="card-desc">يحوّل نفس الشخصية إلى فيديو أنيميشن عمودي من 10 ثواني: الذكاء يختار المشهد المناسب للحيوان بقصة كاملة — بداية ووسط ونهاية.</p>
       <div class="code-block">
         <div class="code-bar">
           <div class="code-file">
@@ -480,13 +480,23 @@ Make the animal selection and all artistic decisions autonomously. Prioritize or
           </div>
         </div>
         <div class="code-wrap" id="videoWrap">
-          <pre class="prompt-content" id="videoPrompt" tabindex="0">Create a 15-second, vertical 9:16, premium-quality 3D animated short using the supplied character sheet as the exact visual reference. Preserve the same adorable juvenile otter throughout: warm chestnut-brown, individually detailed wet fur, creamy beige muzzle and throat extending down its belly, enormous glossy amber-brown eyes, rounded ears, dark textured nose, long white whiskers, short muscular limbs with dark webbed paws, and a thick tapering tail. Maintain identical facial identity, anatomy, proportions, coloring, and fur patterns in every frame. Do not reproduce the character sheet itself.
+          <pre class="prompt-content" id="videoPrompt" tabindex="0">Create a 10-second, vertical 9:16, premium-quality 3D animated short using the supplied character sheet as the exact visual reference. Preserve the exact animal depicted in the character sheet in every frame: identical species, facial identity, anatomy, body proportions, coloring, markings, textures, and distinctive features. Do not reproduce the character sheet itself, and never substitute a different animal or redesign the character.
 
-The scene takes place in a crystal-clear woodland stream, where sunlight creates shimmering golden caustics across smooth river stones beneath the water. Soft green vegetation and warm, out-of-focus riverbank foliage create a peaceful background. Begin immediately with the otter floating on its back in the shallow water, its little webbed paws folded over its creamy belly. A surprisingly large, perfectly transparent air bubble rises from beneath the surface and drifts directly toward its nose. The otter notices it instantly: its enormous eyes cross slightly to follow the bubble, its whiskers twitch, and its head tilts with intense curiosity. As the bubble floats just out of reach, the otter carefully stretches one paw toward it, but the bubble slips sideways on a faint current. The otter paddles its hind feet and makes small alternating movements with its forepaws to follow, accidentally setting its floating body into a slow, increasingly awkward rotation. Its long tail sweeps through the water as a natural rudder, but each attempted correction turns it a little farther. Keep the movement physically coherent, buoyant, and charming. The camera gently tracks the otter at water level, maintaining a clear view of its expressive face and complete body.
+You must make all creative decisions autonomously. Independently choose the scene, setting, action, and comedic situation that perfectly suit the specific animal shown in the character sheet: its species, its anatomy and movement style, its natural behaviors, and its typical environment or a believable equivalent. Do not force any prop, location, or interaction that does not fit the animal. Every generation must feel like a fresh, original story created specifically for this animal.
 
-As the otter completes its little accidental spin, the elusive bubble drifts directly above its muzzle. The otter freezes, goes cross-eyed in concentration, and raises its nose with exaggerated caution. The bubble settles momentarily against the very tip of its wet nose. For one delightful beat, the otter remains perfectly still, eyes wide and paws held aloft. Then the bubble pops with a tiny, delicate plip, releasing a miniature splash directly across its face. The otter recoils in a single believable startle response, briefly squeezes both eyes shut, and shakes its head once, sending a few sparkling droplets outward. It opens its eyes with a comically offended, bewildered expression, looks down at the water, and notices a second tiny bubble beginning to rise in exactly the same place as the original. Its ears perk up, its nose leans toward the approaching bubble, and the video ends just before the next encounter, with the composition and floating posture naturally matching the opening frame for a potential seamless loop.
+Tell one complete micro-story with a clear beginning, middle, and end, fully contained within 10 seconds:
 
-Use sophisticated 3D animated-feature rendering, semi-photorealistic fur groom, detailed wet-fur clumping around the cheeks and paws, delicate individual whiskers, realistic water refraction, physically accurate ripples, subtle surface tension, believable buoyancy, and fine droplets with natural specular highlights. The otter's expressions should be highly readable and comedically timed without becoming distorted. Use a medium full-body framing at the start, a subtle controlled push-in as the bubble approaches, and a slightly tighter facial framing for the pop, keeping the important action comfortably inside the vertical safe area. Use soft cinematic sunlight, gentle fill light, natural depth of field, rich but restrained colors, smooth character animation, consistent geometry, stable textures, and polished cinematic compositing. Include synchronized gentle stream ambience, soft water paddling, tiny bubbling sounds, a delicate pop, and a light splash, with precise comedic timing. No dialogue, narration, music overpowering the effects, subtitles, captions, readable text, logos, or watermarks. One continuous, intelligible scene with no unnecessary cuts. The otter must actively perform the entire action; the camera must never substitute for character animation. Avoid anatomical deformation, extra limbs, duplicated paws, changing eye color, altered markings, fur flicker, unnatural spinning, floating without physical support, random props, and abrupt transitions. Deliver a charming, globally understandable visual comedy with a strong first-second hook, escalating physical humor, and a satisfying final reaction.</pre>
+- BEGINNING (approximately the first 1–2 seconds): a strong visual hook that instantly introduces the animal and its personality.
+- MIDDLE (approximately seconds 3–7): the comedic situation develops and escalates through the animal's own believable actions, keeping all movement physically coherent and charming.
+- END (approximately the last 3 seconds): a satisfying, readable payoff with a clear final reaction that concludes the story.
+
+Keep it one continuous, intelligible scene with no unnecessary cuts. The animal must actively perform the entire action; the camera must never substitute for character animation.
+
+Use sophisticated 3D animated-feature rendering, semi-photorealistic materials, detailed species-appropriate fur, feathers, scales, or skin, expressive eyes, realistic physics, and cinematic lighting appropriate to the chosen scene. Use a medium full-body framing at the start, a subtle controlled camera move that supports the action, and a slightly tighter framing for the key comedic beat, keeping the important action comfortably inside the vertical safe area. Use soft cinematic lighting, gentle fill light, natural depth of field, rich but restrained colors, smooth character animation, consistent geometry, stable textures, and polished cinematic compositing.
+
+Include synchronized, natural sound design that fits the scene: believable ambience, subtle movement sounds, and precise comedic audio accents. No dialogue, narration, music overpowering the effects, subtitles, captions, readable text, logos, or watermarks.
+
+Deliver a charming, globally understandable visual comedy with a strong first-second hook, escalating physical humor, and a satisfying final reaction. Avoid anatomical deformation, extra limbs, duplicated body parts, changing eye color, altered markings, texture flicker, unnatural floating, illogical props, and abrupt transitions.</pre>
         </div>
       </div>
     </article>
