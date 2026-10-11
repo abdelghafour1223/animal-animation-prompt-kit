@@ -222,9 +222,82 @@
     .reveal-2 { animation: rise .5s .08s ease both; }
     @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgb(23 33 28 / 92%); backdrop-filter: blur(10px);
+      color: #EAF2EB; border-bottom: 1px solid rgb(255 255 255 / 10%);
+      transform: translateY(-110%); transition: transform .25s ease;
+    }
+    .topbar.show { transform: none; }
+    .topbar-inner {
+      width: min(1000px, calc(100% - 32px)); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 0;
+    }
+    .topbar-title { font-family: "Alexandria", sans-serif; font-weight: 800; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-title small { display: block; font-family: "IBM Plex Sans Arabic", sans-serif; font-weight: 400; font-size: 11.5px; color: #9DB4A5; }
+    .topbar-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+    .topbar-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      font: inherit; font-size: 12.5px; font-weight: 700;
+      background: var(--brand); color: #fff; border: 0; border-radius: 10px;
+      padding: 9px 14px; min-height: 40px; cursor: pointer;
+      transition: background .16s, transform .16s;
+    }
+    .topbar-btn svg { width: 16px; height: 16px; }
+    .topbar-btn:hover { background: var(--brand-hover); }
+    .topbar-btn:active { transform: scale(.97); }
+    .topbar-btn.alt { background: transparent; border: 1px solid rgb(255 255 255 / 20%); }
+    .topbar-btn.alt:hover { background: rgb(255 255 255 / 10%); }
+    .topbar-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+    .hero-layout { display: grid; grid-template-columns: 1.5fr .8fr; gap: 24px; align-items: center; }
+    .hero-art { display: flex; justify-content: center; }
+    .hero-art svg { width: min(230px, 100%); height: auto; }
+    .bubble { animation: floaty 6s ease-in-out infinite; }
+    .bubble-2 { animation: floaty 7s .8s ease-in-out infinite; }
+    .wave { animation: drift 7s ease-in-out infinite; transform-origin: center; }
+    @keyframes floaty { 0%, 100% { transform: translateY(0); opacity: .9; } 50% { transform: translateY(-10px); opacity: 1; } }
+    @keyframes drift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+    .summary { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 7px; }
+    .summary li {
+      display: flex; gap: 9px; align-items: flex-start;
+      font-size: 13px; line-height: 1.8; color: var(--ink);
+      background: var(--brand-soft); border: 1px solid #D6E4D7;
+      padding: 8px 12px; border-radius: 10px;
+    }
+    .summary svg { width: 17px; height: 17px; flex: 0 0 auto; color: var(--brand); margin-top: 5px; }
+    .kbd-hint { font-size: 11.5px; color: var(--muted); }
+    .kbd-hint kbd {
+      font-family: ui-monospace, monospace; font-size: 11px;
+      background: #EDF2ED; border: 1px solid var(--line); border-bottom-width: 2px;
+      border-radius: 6px; padding: 1px 7px; direction: ltr; display: inline-block;
+    }
+
+    .to-top {
+      position: fixed; bottom: 22px; left: 22px; z-index: 50;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+      display: grid; place-items: center; cursor: pointer;
+      box-shadow: 0 10px 24px rgb(23 33 28 / 14%);
+      opacity: 0; pointer-events: none; transform: translateY(10px);
+      transition: opacity .25s, transform .25s;
+    }
+    .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
+    .to-top:hover { border-color: var(--brand); background: var(--brand-soft); }
+    .to-top:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+    .to-top svg { width: 20px; height: 20px; transform: scaleX(-1); }
+
     @media (max-width: 700px) {
       body { font-size: 16px; }
       .hero { border-radius: 0 0 22px 22px; padding: 32px 0 24px; }
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-art { order: -1; }
+      .hero-art svg { width: 150px; }
+      .topbar-title small { display: none; }
+      .topbar-btn span { display: none; }
+      .topbar-btn { padding: 9px 12px; }
       .steps { grid-template-columns: 1fr; }
       .card-top { flex-direction: column; }
       .card-actions { width: 100%; }
@@ -241,8 +314,24 @@
 </head>
 <body>
   <a class="skip" href="#prompts">تخطي إلى البرومبتات</a>
+  <div class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-title">Animal Prompt Kit<small>جوج برومبتات جاهزة للنسخ</small></div>
+      <div class="topbar-actions">
+        <button class="topbar-btn" type="button" data-copy="characterPrompt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          <span>نسخ 1</span>
+        </button>
+        <button class="topbar-btn alt" type="button" data-copy="videoPrompt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          <span>نسخ 2</span>
+        </button>
+      </div>
+    </div>
+  </div>
   <header class="hero">
-    <div class="hero-inner">
+    <div class="hero-inner hero-layout">
+      <div>
       <span class="hero-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
         مختبر الأنيميشن — Prompt Kit
@@ -259,7 +348,25 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
           نسخ البرومبتين معا
         </button>
-        <a class="btn btn-ghost" href="#characterCard">بدا بالشخصية</a>
+        <span class="kbd-hint">تلميح: ضغط <kbd>1</kbd> أو <kbd>2</kbd> لنسخ برومبت مباشرة</span>
+      </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 200 170" fill="none" role="img">
+          <ellipse cx="100" cy="140" rx="78" ry="14" fill="#FFFFFF" opacity=".08"/>
+          <path class="wave" d="M30 128c14-10 26-10 40 0s26 10 40 0 26-10 40 0 14 8 22 4" stroke="#D9A441" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+          <path class="wave" d="M40 140c12-8 24-8 36 0s24 8 36 0 24-8 36 0" stroke="#7BDBA6" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+          <ellipse cx="100" cy="105" rx="34" ry="26" fill="#FFFFFF" opacity=".12"/>
+          <ellipse cx="100" cy="102" rx="26" ry="20" fill="#7BDBA6" opacity=".28"/>
+          <circle cx="92" cy="98" r="4" fill="#17211C"/>
+          <circle cx="108" cy="98" r="4" fill="#17211C"/>
+          <circle cx="93.2" cy="96.8" r="1.2" fill="#fff"/>
+          <circle cx="109.2" cy="96.8" r="1.2" fill="#fff"/>
+          <ellipse cx="100" cy="108" rx="5" ry="3.6" fill="#17211C"/>
+          <g class="bubble"><circle cx="138" cy="62" r="13" stroke="#fff" stroke-width="2" opacity=".9"/><circle cx="134" cy="58" r="3.4" fill="#fff" opacity=".8"/></g>
+          <g class="bubble-2"><circle cx="62" cy="48" r="8" stroke="#F2D79B" stroke-width="2" opacity=".85"/><circle cx="59.5" cy="45.5" r="2" fill="#F2D79B" opacity=".8"/></g>
+          <g class="bubble-2"><circle cx="118" cy="30" r="5" stroke="#fff" stroke-width="1.8" opacity=".7"/></g>
+        </svg>
       </div>
     </div>
   </header>
@@ -299,6 +406,11 @@
             <div class="meta-group"><span class="lang-tag">EN • prompt</span><span class="count" data-count-for="characterPrompt">…</span></div>
             <div class="meta-group"><span class="status-dot" data-status-for="characterPrompt"></span><span data-status-text-for="characterPrompt">جاهز للنسخ</span></div>
           </div>
+          <ul class="summary" aria-label="ملخص البرومبت">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>كيختار حيوان مختلف كل مرة بوحدو بلا ما تسولو</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>كيولد ورقة ستوديو كاملة: 4 مناظر + تعابير + تفاصيل</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>لصقو في مولد الصور وغتخرج ليك الصورة المرجعية نيشان</li>
+          </ul>
         </div>
         <div class="code-wrap" id="characterWrap"><pre class="prompt-content" id="characterPrompt" tabindex="0">You are a world-class 3D character designer and visual development artist specializing in original, expressive animal characters for viral, dialogue-free animated shorts.
 
@@ -414,6 +526,11 @@ Make the animal selection and all artistic decisions autonomously. Prioritize or
             <div class="meta-group"><span class="lang-tag">EN • prompt</span><span class="count" data-count-for="videoPrompt">…</span></div>
             <div class="meta-group"><span class="status-dot" data-status-for="videoPrompt"></span><span data-status-text-for="videoPrompt">جاهز للنسخ</span></div>
           </div>
+          <ul class="summary" aria-label="ملخص البرومبت">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>كيحافظ على نفس الحيوان والفرو والألوان في كل فريم</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>مشهد فقاعة واحد متواصل بكوميديا بصرية بلا حوار</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>زيد الصورة المرجعية مع النص في مولد الفيديو وصافي</li>
+          </ul>
         </div>
         <div class="code-wrap" id="videoWrap"><pre class="prompt-content" id="videoPrompt" tabindex="0">Create a 15-second, vertical 9:16, premium-quality 3D animated short using the supplied character sheet as the exact visual reference. Preserve the same adorable juvenile otter throughout: warm chestnut-brown, individually detailed wet fur, creamy beige muzzle and throat extending down its belly, enormous glossy amber-brown eyes, rounded ears, dark textured nose, long white whiskers, short muscular limbs with dark webbed paws, and a thick tapering tail. Maintain identical facial identity, anatomy, proportions, coloring, and fur patterns in every frame. Do not reproduce the character sheet itself.
 
@@ -428,6 +545,9 @@ Use sophisticated 3D animated-feature rendering, semi-photorealistic fur groom, 
     <footer>ملف HTML مستقل — البرومبتات محفوظة حرفيا، والنسخ خدام بلا أنترنت.</footer>
   </main>
 
+  <button class="to-top" id="toTop" type="button" aria-label="رجوع إلى الأعلى">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  </button>
   <div class="toast" id="toast" role="status" aria-live="polite">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
     <span id="toastText">تم النسخ</span>
@@ -534,6 +654,32 @@ Use sophisticated 3D animated-feature rendering, semi-photorealistic fur groom, 
         catch (e) { showToast("تعذر النسخ — جرب كل برومبت بوحدو."); }
       });
     }
+    var topbar = document.getElementById("topbar");
+    var toTop = document.getElementById("toTop");
+    function onScroll() {
+      var y = window.scrollY || window.pageYOffset || 0;
+      if (topbar) topbar.classList.toggle("show", y > 420);
+      if (toTop) toTop.classList.toggle("show", y > 700);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    if (toTop) {
+      toTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "prefers-reduced-motion" in window ? "auto" : "smooth" });
+      });
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      var tag = (document.activeElement && document.activeElement.tagName) || "";
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "1") {
+        var b1 = document.querySelector('[data-copy="characterPrompt"].copy-btn');
+        if (b1) copyPrompt("characterPrompt", b1);
+      } else if (e.key === "2") {
+        var b2 = document.querySelector('[data-copy="videoPrompt"].copy-btn');
+        if (b2) copyPrompt("videoPrompt", b2);
+      }
+    });
     updateCounts();
   </script>
 </body>
